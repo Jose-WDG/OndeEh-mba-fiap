@@ -4,6 +4,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id 'com.google.firebase.appdistribution'
+
 }
 def keystorePropertiesFile = rootProject.file( "app/keystore.properties" )
 def keystoreProperties = new Properties()
@@ -16,8 +18,8 @@ android {
         applicationId "br.com.ze.ondeeh"
         minSdk 21
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -41,6 +43,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             signingConfig signingConfigs.release
+            // app distribution
+            firebaseAppDistribution {
+                appId = "1:265526941598:android:a667b90739eecffb14688f"
+                releaseNotesFile = "app/releasenotes.txt"
+                groups = "Testadores"
+                serviceCredentialsFile = "app/service-account-firebase.json"
+            }
+            // fim app distribution
         }
     }
     compileOptions {
@@ -64,5 +74,5 @@ dependencies {
     implementation Deps.Retrofit.retrofit
     implementation Deps.Retrofit.retrofitMoshiConverter
     implementation platform('com.google.firebase:firebase-bom:32.0.0')
-    implementation 'com.google.firebase:firebase-analytics-ktx'
+
 }
